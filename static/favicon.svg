@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Use the primary blue from your app's color scheme -->
+    <path d="M50 10L15 40L25 90H75L85 40L50 10Z" fill="#3B82F6"/>
+    <path d="M50 10L35 40H65L50 10Z" fill="#A7C8F9"/> <!-- Lighter shade for inner petals -->
+    <path d="M25 90L50 40L75 90H25Z" fill="#A7C8F9"/>
+</svg>

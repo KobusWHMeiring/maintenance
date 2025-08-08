@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 3: Children's Details{% endblock %}
+
+{% block content %}
+<div class="wizard-content-wrapper">
+
+     {% include 'wizard/_wizard_tabs.html' %}
+
+    <div class="wizard-form-body">
+        <div class="wizard-header">
+            <span class="wizard-header__step-counter">Step 3 of 5</span>
+            <h2 class="wizard-header__title">Children's Details</h2>
+            <p class="wizard-header__intro">Add the details for each child you are claiming maintenance for. Click "Add Another Child" if you need more forms.</p>
+        </div>
+
+        <form method="post" class="form-wizard" novalidate>
+            {% csrf_token %}
+            {{ form.management_form }}
+            <input type="hidden" name="form_step" value="child_details">
+
+            <div id="child-forms-container" class="child-formset">
+                {% for child_form in form %}
+                    <div class="child-formset__form">
+                        <div class="child-formset__header">
+                            <h4 class="child-formset__title">Child {{ forloop.counter }}</h4>
+                            {% if form.can_delete %}
+                                <label for="{{ child_form.DELETE.id_for_label }}" class="btn btn-secondary btn-sm child-formset__remove-btn">
+                                    <span class="material-icons" style="font-size: 1rem;">delete</span> Remove
+                                </label>
+                                <div class="child-formset__delete-widget">{{ child_form.DELETE }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-grid form-grid--2-col">
+                            <div class="form-group">
+                                <label class="form-label" for="{{ child_form.full_name.id_for_label }}">{{ child_form.full_name.label }}</label>
+                                {{ child_form.full_name }}
+                                {% for error in child_form.full_name.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="{{ child_form.date_of_birth.id_for_label }}">{{ child_form.date_of_birth.label }}</label>
+                                {{ child_form.date_of_birth }}
+                                {% for error in child_form.date_of_birth.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Empty form template for JavaScript -->
+            <div id="empty-form-template" style="display: none;">
+                <div class="child-formset__form">
+                    <div class="child-formset__header">
+                        <h4 class="child-formset__title">Child __prefix_num__</h4>
+                        {% if form.can_delete %}
+                            <label for="{{ form.empty_form.DELETE.id_for_label|add:'__prefix__' }}" class="btn btn-secondary btn-sm child-formset__remove-btn">
+                                <span class="material-icons" style="font-size: 1rem;">delete</span> Remove
+                            </label>
+                            <div class="child-formset__delete-widget">{{ form.empty_form.DELETE }}</div>
+                        {% endif %}
+                    </div>
+                     <div class="form-grid form-grid--2-col">
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.empty_form.full_name.id_for_label }}">{{ form.empty_form.full_name.label }}</label>
+                            {{ form.empty_form.full_name }}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="{{ form.empty_form.date_of_birth.id_for_label }}">{{ form.empty_form.date_of_birth.label }}</label>
+                            {{ form.empty_form.date_of_birth }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 2rem;">
+                 <button type="button" id="add-child-btn" class="btn btn-secondary w-100">
+                    <span class="material-icons">add_circle_outline</span> Add Another Child
+                </button>
+            </div>
+
+            <div class="wizard-form-footer">
+                <button type="submit" class="btn btn-primary">
+                    Continue to Your Finances
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('child-forms-container');
+    const addChildBtn = document.getElementById('add-child-btn');
+    const totalFormsInput = document.querySelector('input[name$="-TOTAL_FORMS"]');
+    const emptyFormTemplate = document.getElementById('empty-form-template').innerHTML;
+
+    addChildBtn.addEventListener('click', function() {
+        const formIndex = parseInt(totalFormsInput.value);
+        // Replace the placeholder prefix with the new form index
+        let newFormHtml = emptyFormTemplate.replace(/__prefix__/g, formIndex);
+        // Also replace a custom placeholder for the human-readable number
+        newFormHtml = newFormHtml.replace(/__prefix_num__/g, formIndex + 1);
+
+        // Render the new form before updating the count
+        container.insertAdjacentHTML('beforeend', newFormHtml);
+        totalFormsInput.value = formIndex + 1;
+    });
+
+    // Use event delegation to handle clicks on dynamically added remove buttons
+    container.addEventListener('change', function(e) {
+        // Check if the changed element is a DELETE checkbox
+        if (e.target && e.target.matches('input[type="checkbox"][name$="-DELETE"]')) {
+            const childFormDiv = e.target.closest('.child-formset__form');
+            if (e.target.checked) {
+                childFormDiv.classList.add('child-formset__form--is-deleting');
+            } else {
+                childFormDiv.classList.remove('child-formset__form--is-deleting');
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

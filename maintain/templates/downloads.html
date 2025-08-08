@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Application is Ready{% endblock %}
+
+{% block content %}
+<div class="downloads-page">
+
+    <div class="downloads-page__hero">
+        <span class="material-icons downloads-page__hero-icon">check_circle</span>
+        <h1 class="downloads-page__hero-title">
+            Your Application is Ready!
+        </h1>
+        <p class="downloads-page__hero-intro">
+            Success! You can now download your completed form. Follow the steps below to file your maintenance claim correctly.
+        </p>
+        <div class="downloads-page__cta-container">
+            <a href="{% url 'generate_pdf' %}" class="btn btn-primary btn-lg downloads-page__cta">
+                <span aria-hidden="true" class="material-icons">download</span>
+                Download Your PDF Application
+            </a>
+        </div>
+    </div>
+
+    <hr class="downloads-page__divider">
+
+    <div class="downloads-page__main-content">
+        <div class="downloads-page__section">
+            <h2 class="downloads-page__section-header">
+                What to Do Next
+            </h2>
+            <ol class="stepper">
+                <li class="stepper__item">
+                    <div class="stepper__icon">1</div>
+                    <div class="stepper__content">
+                        <h3 class="stepper__title">Print Your Application</h3>
+                        <p class="stepper__text">Print the downloaded J101E PDF document.</p>
+                    </div>
+                </li>
+                <li class="stepper__item">
+                    <div class="stepper__icon">2</div>
+                    <div class="stepper__content">
+                        <h3 class="stepper__title">Review and Sign</h3>
+                        <p class="stepper__text">Carefully read the form, ensure all details are correct, and sign where required.</p>
+                    </div>
+                </li>
+                <li class="stepper__item">
+                    <div class="stepper__icon">3</div>
+                    <div class="stepper__content">
+                        <h3 class="stepper__title">Gather Your Documents</h3>
+                        <p class="stepper__text">Use the checklist on this page to gather all required supporting documents.</p>
+                    </div>
+                </li>
+                <li class="stepper__item">
+                    <div class="stepper__icon">4</div>
+                    <div class="stepper__content">
+                        <h3 class="stepper__title">Make Copies</h3>
+                        <p class="stepper__text">Make two copies of your signed application and all documents (one for court, one for you).</p>
+                    </div>
+                </li>
+                 <li class="stepper__item">
+                    <div class="stepper__icon">5</div>
+                    <div class="stepper__content">
+                        <h3 class="stepper__title">Go to Court</h3>
+                        <p class="stepper__text">Take everything to the Maintenance Clerk at your nearest Magistrate's Court to submit it.</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="downloads-page__section">
+            <div class="document-checklist">
+                <h2 class="document-checklist__header">
+                    Documents to Gather
+                </h2>
+                <ul class="document-checklist__list">
+                    {% for doc in supporting_docs %}
+                    <li class="document-checklist__item">
+                        <span class="material-icons document-checklist__icon">check_box_outline_blank</span>
+                        <span class="document-checklist__text">{{ doc }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="downloads-page__footer">
+        <div class="disclaimer-box disclaimer-box--warning">
+            <span class="material-icons disclaimer-box__icon">info</span>
+            <p class="disclaimer-box__text">
+                <strong>Important:</strong> This tool does not provide legal advice. You are responsible for ensuring the information on the form is accurate and for correctly filing it with the court.
+            </p>
+        </div>
+        <div class="privacy-notice">
+            <p class="privacy-notice__text">
+                <span aria-hidden="true" class="material-icons privacy-notice__icon">lock</span>
+                For your privacy and security, all information you entered has now been permanently deleted from our server.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Justice Lab - Child Maintenance Application{% endblock %}
+
+{% block content %}
+<main class="page-wrapper">
+    <!-- Hero Section -->
+    <section class="hero-gradient">
+        <div class="container" style="text-align: center; padding: 4rem 0;">
+            <h1 class="landing-hero__title">Take the first step to securing child maintenance.</h1>
+            <p class="landing-hero__subtitle">
+                Our free and secure tool helps you fill out the official J101E form correctly, without the confusion. No account needed.
+            </p>
+            <div class="landing-hero__cta">
+                <a href="{% url 'wizard_start' %}" class="btn btn-primary btn-lg">Start Your Application Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-header__title">A Simple 3-Step Process</h2>
+                <p class="section-header__subtitle">Get your application ready in no time.</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step__icon-wrapper">
+                        <span class="material-icons process-step__icon">edit_note</span>
+                    </div>
+                    <h3 class="process-step__title">Step 1: Answer Simple Questions</h3>
+                    <p class="process-step__description">Our intuitive form guides you through each section, making sure you don't miss anything important.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step__icon-wrapper">
+                        <span class="material-icons process-step__icon">picture_as_pdf</span>
+                    </div>
+                    <h3 class="process-step__title">Step 2: Review & Download</h3>
+                    <p class="process-step__description">Check your completed form for accuracy, then instantly download it as a print-ready PDF.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step__icon-wrapper">
+                        <span class="material-icons process-step__icon">gavel</span>
+                    </div>
+                    <h3 class="process-step__title">Step 3: Submit to Court</h3>
+                    <p class="process-step__description">Take your completed form and supporting documents to the nearest Magistrate's Court to lodge your application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="page-section page-section--white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-header__title">Empowering You Through the Process</h2>
+                <p class="section-header__subtitle">We designed this tool with your needs in mind.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="material-icons feature-card__icon">paid</span>
+                    <h3 class="feature-card__title">Free to Use</h3>
+                    <p class="feature-card__description">Access to justice shouldn't have a price tag. Our tool is 100% free.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-icons feature-card__icon">lock</span>
+                    <h3 class="feature-card__title">Private & Secure</h3>
+                    <p class="feature-card__description">We don't save your data. Your information is deleted when you close the window.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-icons feature-card__icon">lightbulb</span>
+                    <h3 class="feature-card__title">Guided Process</h3>
+                    <p class="feature-card__description">We simplify complex legal jargon, guiding you every step of the way.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-icons feature-card__icon">task_alt</span>
+                    <h3 class="feature-card__title">Reduces Errors</h3>
+                    <p class="feature-card__description">Our tool helps prevent common mistakes that can cause delays in your application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Justice Lab Suite Section -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-header__title">Part of the Justice Lab Suite</h2>
+                <p class="section-header__subtitle">
+                    This tool is one of many resources from <a href="https://justicelab.africa/" target="_blank" rel="noopener noreferrer">Justice Lab</a>, dedicated to making legal processes in South Africa more accessible. We leverage technology to empower individuals and promote access to justice for all.
+                </p>
+                <div class="landing-hero__cta">
+                    <a href="{% url 'wizard_start' %}" class="btn btn-primary btn-lg">Get Started Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Justice Lab{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/justice_lab_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/maintain_styles.css' %}">
+      <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+</head>
+<body class="maintenance-claim-tool">
+   <header class="header">
+        <div class="container header__container">
+            <a href="/" class="header__brand-link">
+                <span class="material-icons header__brand-icon">
+                    balance
+                </span>
+                <div class="header__brand-text">
+                    <h1 class="header__title">JUSTICE LAB</h1>
+                    <p class="header__subtitle">Maintenance Assist</p>
+                </div>
+            </a>    
+            
+            <nav class="nav">
+                <a href="https://justicelab.africa/" class="nav__link" target="_blank" rel="noopener noreferrer">
+                    About Justice Lab
+                </a>
+            </nav>
+
+        </div>
+    </header>
+    <main class="container page-wrapper">
+        <div class="flex-grow">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom-bar">
+                © {% now "Y" %} Justice Lab. A non-profit, public good project.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Application Summary{% endblock %}
+
+{% block content %}
+<div class="summary-page">
+    <div class="summary-header">
+        <h2 class="summary-header__title">Application Summary</h2>
+        <p class="summary-header__intro">Please review all the information you have provided. If anything is incorrect, use the navigation tabs above to go back and make changes.</p>
+    </div>
+
+    <div class="summary-content">
+        {# --- Applicant Details --- #}
+        {% with section_data=wizard_data.applicant_details %}
+        {% if section_data %}
+        <div class="summary-section">
+            <h3 class="summary-section__header">
+                <span class="material-icons summary-section__icon">person</span>
+                <span>Applicant Details (You)</span>
+            </h3>
+            <div class="summary-grid">
+                {% for key, value in section_data.items %}
+                    {% if value and key != 'form_step' %}
+                        <div class="summary-item {% if 'address' in key %}summary-item--full-width{% endif %}">
+                            <span class="summary-item__key">{{ key|title|cut:'_' }}:</span>
+                            <span class="summary-item__value">{{ value }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {# --- Respondent Details --- #}
+        {% with section_data=wizard_data.respondent_details %}
+        {% if section_data %}
+        <div class="summary-section">
+            <h3 class="summary-section__header">
+                <span class="material-icons summary-section__icon">family_restroom</span>
+                <span>Respondent Details</span>
+            </h3>
+            <div class="summary-grid">
+                {% for key, value in section_data.items %}
+                    {% if value and key != 'form_step' %}
+                        <div class="summary-item {% if 'address' in key %}summary-item--full-width{% endif %}">
+                            <span class="summary-item__key">{{ key|title|cut:'_' }}:</span>
+                            <span class="summary-item__value">{{ value }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {# --- Children's Details --- #}
+        {% with children_data=wizard_data.child_details %}
+        {% if children_data %}
+        <div class="summary-section">
+            <h3 class="summary-section__header">
+                <span class="material-icons summary-section__icon">child_care</span>
+                <span>Children's Details</span>
+            </h3>
+            <div class="summary-child-list">
+                {% for child in children_data %}
+                <div class="summary-child">
+                     <h4 class="summary-child__title">{{ child.full_name|default:"Child Details" }}</h4>
+                     <div class="summary-child__grid">
+                        {% for key, value in child.items %}
+                            {% if key != 'full_name' and value %}
+                                <div class="summary-item">
+                                    <span class="summary-item__key">{{ key|title|cut:'_' }}:</span>
+                                    <span class="summary-item__value">{{ value }}</span>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                     </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {# --- Applicant Income & Assets --- #}
+        {% with section_data=wizard_data.applicant_income_assets %}
+        {% if section_data %}
+        <div class="summary-section">
+            <h3 class="summary-section__header">
+                <span class="material-icons summary-section__icon summary-section__icon--green">account_balance_wallet</span>
+                <span>Your Income & Assets</span>
+            </h3>
+            <div class="summary-grid">
+                {% for key, value in section_data.items %}
+                     {% if value and key != 'form_step' and value != '0.00' %}
+                        <div class="summary-item">
+                            <span class="summary-item__key">{{ key|title|cut:'_' }}:</span>
+                            <span class="summary-item__value">R {{ value }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {# --- Claim Logistics & Monthly Expenses --- #}
+        {% with section_data=wizard_data.financials %}
+        {% if section_data %}
+        <div class="summary-section">
+            <h3 class="summary-section__header">
+                <span class="material-icons summary-section__icon summary-section__icon--red">receipt_long</span>
+                <span>Claim & Expense Details</span>
+            </h3>
+            <div class="summary-grid">
+                {% for key, value in section_data.items %}
+                    {% if value and key != 'form_step' and value != '0.00' %}
+                        <div class="summary-item {% if 'reason' in key or 'text' in key %}summary-item--full-width{% endif %}">
+                            <span class="summary-item__key">{{ key|title|cut:'_' }}:</span>
+                            <span class="summary-item__value">
+                                {% if 'self_' in key or 'child_' in key or 'total_maintenance' in key %}R {% endif %}
+                                {{ value }}
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="summary-footer">
+        <p class="summary-footer__text">If all the information above is correct, you can now generate your final PDF document.</p>
+        <a href="{% url 'downloads_page' %}" class="btn btn-primary btn-lg">
+     <span class="material-icons">check_circle</span>
+     Confirm Information & Continue
+</a>
+    </div>
+</div>
+{% endblock %}

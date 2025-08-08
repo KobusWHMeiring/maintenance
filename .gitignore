@@ -1,0 +1,25 @@
+# .gitignore
+
+# Environment variables
+.env*
+
+# Django stuff
+db.sqlite3
+*.log
+__pycache__/
+*.pyc
+
+# Python virtual environment
+venv/
+*/venv/
+
+# Static files and media
+/staticfiles/
+/media/
+
+# IDE files
+.idea/
+.vscode/
+
+# Local PDF output
+filled_form.pdf

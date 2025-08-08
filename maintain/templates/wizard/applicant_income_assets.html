@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 4: Your Financial Details{% endblock %}
+
+{% block content %}
+<div class="wizard-content-wrapper">
+
+    {% include 'wizard/_wizard_tabs.html' %}
+
+    <div class="wizard-form-body">
+        <div class="wizard-header">
+            <span class="wizard-header__step-counter">Step 4 of 5</span>
+            <h2 class="wizard-header__title">Your Income & Assets</h2>
+            <p class="wizard-header__intro">This information is required for the official form. Please provide your personal financial details. Enter '0' if a field does not apply.</p>
+        </div>
+
+        <form method="post" class="form-wizard" novalidate>
+            {% csrf_token %}
+            {{ form.form_step }}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+                {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}
+
+            <h3 class="mb-3">Your Assets</h3>
+            <p class="text-muted mb-4">Enter the total current value for any assets you own.</p>
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.fixed_property.id_for_label }}">{{ form.fixed_property.label }}</label>
+                    {{ form.fixed_property }}
+                    {% for error in form.fixed_property.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.investments.id_for_label }}">{{ form.investments.label }}</label>
+                    {{ form.investments }}
+                    {% for error in form.investments.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.savings.id_for_label }}">{{ form.savings.label }}</label>
+                    {{ form.savings }}
+                    {% for error in form.savings.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                 <div class="form-group">
+                    <label class="form-label" for="{{ form.shares.id_for_label }}">{{ form.shares.label }}</label>
+                    {{ form.shares }}
+                    {% for error in form.shares.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                 <div class="form-group">
+                    <label class="form-label" for="{{ form.motor_vehicles.id_for_label }}">{{ form.motor_vehicles.label }}</label>
+                    {{ form.motor_vehicles }}
+                    {% for error in form.motor_vehicles.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <hr class="my-5">
+
+            <h3 class="mb-3">Your Monthly Income & Deductions</h3>
+            <p class="text-muted mb-4">Provide your typical monthly income and the deductions that appear on your payslip.</p>
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.gross_salary.id_for_label }}">{{ form.gross_salary.label }}</label>
+                    {{ form.gross_salary }}
+                    {% for error in form.gross_salary.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.other_income_1.id_for_label }}">{{ form.other_income_1.label }}</label>
+                    {{ form.other_income_1 }}
+                    {% for error in form.other_income_1.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.tax.id_for_label }}">{{ form.tax.label }}</label>
+                    {{ form.tax }}
+                    {% for error in form.tax.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.medical_aid.id_for_label }}">{{ form.medical_aid.label }}</label>
+                    {{ form.medical_aid }}
+                    {% for error in form.medical_aid.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.pension.id_for_label }}">{{ form.pension.label }}</label>
+                    {{ form.pension }}
+                    {% for error in form.pension.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.other_deductions.id_for_label }}">{{ form.other_deductions.label }}</label>
+                    {{ form.other_deductions }}
+                    {% for error in form.other_deductions.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="wizard-form-footer">
+                <button type="submit" class="btn btn-primary">
+                    Continue to Claim Details
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

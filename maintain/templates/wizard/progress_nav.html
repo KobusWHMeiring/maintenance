@@ -1,0 +1,15 @@
+<nav class="progress-nav">
+    {% for step_key, step_name, step_index in nav_steps %}
+
+        {# 1. Set the link URL. This condition is valid. #}
+        <a href="{% if step_key in completed_steps or step_index <= current_step_index %}{% url 'wizard_start' %}?step={{ step_key }}{% else %}#{% endif %}"
+           class="progress-step
+                  {# 2. Set the 'active' or 'completed' class. This is also valid. #}
+                  {% if step_key == current_step_name %}active{% elif step_key in completed_steps %}completed{% endif %}
+                  {# 3. Set the 'disabled' class. This logic avoids parentheses and invalid 'with' tags. #}
+                  {% if not step_key in completed_steps and step_index > current_step_index %}disabled{% endif %}">
+            <span class="progress-step-name">{{ step_name }}</span>
+        </a>
+
+    {% endfor %}
+</nav>

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 5: Claim and Expense Details{% endblock %}
+
+{% block content %}
+<div class="wizard-content-wrapper">
+
+     {% include 'wizard/_wizard_tabs.html' %}
+
+    <div class="wizard-form-body">
+        <div class="wizard-header">
+            <span class="wizard-header__step-counter">Step 5 of 5</span>
+            <h2 class="wizard-header__title">The Maintenance Claim</h2>
+            <p class="wizard-header__intro">Finally, provide details about the claim and a breakdown of the monthly expenses. Enter '0' if a value is not applicable.</p>
+        </div>
+
+        <form method="post" class="form-wizard" novalidate>
+            {% csrf_token %}
+            {{ form.form_step }}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+                {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Claim Details Section -->
+            <h3 class="mb-3">Claim Details</h3>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.legally_liable_reason.id_for_label }}">{{ form.legally_liable_reason.label }}</label>
+                {{ form.legally_liable_reason }}
+                {% if form.legally_liable_reason.help_text %}<p class="form-help-text"><span>{{ form.legally_liable_reason.help_text }}</span></p>{% endif %}
+            </div>
+             <div class="form-group">
+                <label class="form-label" for="{{ form.child_in_care_reason.id_for_label }}">{{ form.child_in_care_reason.label }}</label>
+                {{ form.child_in_care_reason }}
+                {% if form.child_in_care_reason.help_text %}<p class="form-help-text"><span>{{ form.child_in_care_reason.help_text }}</span></p>{% endif %}
+            </div>
+             <div class="form-group">
+                <label class="form-label" for="{{ form.other_contributions_text.id_for_label }}">{{ form.other_contributions_text.label }}</label>
+                {{ form.other_contributions_text }}
+                 {% if form.other_contributions_text.help_text %}<p class="form-help-text"><span>{{ form.other_contributions_text.help_text }}</span></p>{% endif %}
+            </div>
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.date_not_supported.id_for_label }}">{{ form.date_not_supported.label }}</label>
+                    {{ form.date_not_supported }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.payment_day.id_for_label }}">{{ form.payment_day.label }}</label>
+                    {{ form.payment_day }}
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="form-label" for="{{ form.payment_made_to.id_for_label }}">{{ form.payment_made_to.label }}</label>
+                {{ form.payment_made_to }}
+                {% if form.payment_made_to.help_text %}<p class="form-help-text"><span>{{ form.payment_made_to.help_text }}</span></p>{% endif %}
+            </div>
+
+
+            <hr class="my-5">
+
+            <!-- Monthly Expenses Section -->
+            <h3 class="mb-3">Monthly Expense Breakdown</h3>
+            <p class="text-muted mb-4">Split shared costs between yourself and the child(ren). For expenses that are only for the children (like school uniforms), leave the "Your Share" field blank.</p>
+
+            <div class="expense-table">
+                <div class="expense-table__header">
+                    <div class="expense-table__label">Expense Category</div>
+                    <div class="expense-table__inputs">
+                        <div>Your Share (R)</div>
+                        <div>Child(ren)'s Share (R)</div>
+                    </div>
+                </div>
+
+                <h4 class="expense-table__category-title">Household</h4>
+                <div class="expense-table__row"><div class="expense-table__label">Lodging (Rent/Bond)</div><div class="expense-table__inputs">{{ form.self_lodging }}{{ form.child_lodging }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Groceries / Food</div><div class="expense-table__inputs">{{ form.self_groceries }}{{ form.child_groceries }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Water & Electricity</div><div class="expense-table__inputs">{{ form.self_utilities }}{{ form.child_utilities }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Rates & Taxes</div><div class="expense-table__inputs">{{ form.self_rates_taxes }}{{ form.child_rates_taxes }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Laundry / Cleaning</div><div class="expense-table__inputs">{{ form.self_laundry }}{{ form.child_laundry }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Telephone / Cellphone</div><div class="expense-table__inputs">{{ form.self_telephone }}{{ form.child_telephone }}</div></div>
+
+                <h4 class="expense-table__category-title">Clothing</h4>
+                <div class="expense-table__row"><div class="expense-table__label">Clothes & Shoes</div><div class="expense-table__inputs">{{ form.self_clothing }}{{ form.child_clothing }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">School Uniforms</div><div class="expense-table__inputs expense-table__inputs--single">{{ form.child_school_uniforms }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Sports Clothes</div><div class="expense-table__inputs expense-table__inputs--single">{{ form.child_sports_clothes }}</div></div>
+
+                <h4 class="expense-table__category-title">Transport</h4>
+                <div class="expense-table__row"><div class="expense-table__label">Public Transport / Lift Club</div><div class="expense-table__inputs">{{ form.self_transport_public }}{{ form.child_transport_public }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Car: Fuel</div><div class="expense-table__inputs">{{ form.self_car_fuel }}{{ form.child_car_fuel }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Car: Maintenance</div><div class="expense-table__inputs">{{ form.self_car_maintenance }}{{ form.child_car_maintenance }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Car: Insurance & Installments</div><div class="expense-table__inputs">{{ form.self_car_insurance }}{{ form.child_car_insurance }}</div></div>
+
+                <h4 class="expense-table__category-title">Education</h4>
+                <div class="expense-table__row"><div class="expense-table__label">School Fees</div><div class="expense-table__inputs expense-table__inputs--single">{{ form.child_school_fees }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Books & Stationery</div><div class="expense-table__inputs expense-table__inputs--single">{{ form.child_stationery }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Outings & Extramurals</div><div class="expense-table__inputs expense-table__inputs--single">{{ form.child_extramural }}</div></div>
+
+                <h4 class="expense-table__category-title">Medical (uncovered)</h4>
+                <div class="expense-table__row"><div class="expense-table__label">Doctor / Dentist</div><div class="expense-table__inputs">{{ form.self_medical_uncovered }}{{ form.child_medical_uncovered }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Medication</div><div class="expense-table__inputs">{{ form.self_medication_uncovered }}{{ form.child_medication_uncovered }}</div></div>
+
+                <h4 class="expense-table__category-title">Other</h4>
+                <div class="expense-table__row"><div class="expense-table__label">Holidays & Entertainment</div><div class="expense-table__inputs">{{ form.self_entertainment }}{{ form.child_entertainment }}</div></div>
+                <div class="expense-table__row"><div class="expense-table__label">Other Significant Expenses</div><div class="expense-table__inputs">{{ form.self_other }}{{ form.child_other }}</div></div>
+
+                <div class="expense-table__row expense-table__total-row">
+                    <div class="expense-table__label">Calculated Total Child(ren)'s Expenses</div>
+                    <div class="expense-table__inputs"><div></div><div id="child-expense-total" class="expense-table__total-value">R 0.00</div></div>
+                </div>
+            </div>
+
+            <hr class="my-5">
+            
+            <!-- Final Claim Section -->
+            <h3 class="mb-3">Your Formal Claim</h3>
+            <div class="form-group">
+                <label class="form-label" for="{{ form.total_maintenance_claimed.id_for_label }}">{{ form.total_maintenance_claimed.label }}</label>
+                {{ form.total_maintenance_claimed }}
+                {% if form.total_maintenance_claimed.help_text %}<p class="form-help-text"><span>{{ form.total_maintenance_claimed.help_text }}</span></p>{% endif %}
+                {% for error in form.total_maintenance_claimed.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="wizard-form-footer">
+                <button type="submit" class="btn btn-primary">
+                    Review Application
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form.form-wizard');
+    const childTotalElement = document.getElementById('child-expense-total');
+    
+    // This selector is robust and will still work with the new structure
+    const childExpenseInputs = form.querySelectorAll('input[name^="child_"]');
+
+    function calculateTotal() {
+        let total = 0;
+        childExpenseInputs.forEach(input => {
+            const value = parseFloat(input.value) || 0;
+            total += value;
+        });
+        // Format as currency
+        childTotalElement.textContent = `R ${total.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    // Calculate total on page load to initialize it
+    calculateTotal();
+
+    // Recalculate whenever any input in the form changes
+    form.addEventListener('input', calculateTotal);
+});
+</script>
+{% endblock %}

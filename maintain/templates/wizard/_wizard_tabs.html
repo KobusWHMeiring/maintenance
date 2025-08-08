@@ -1,0 +1,23 @@
+<div class="wizard-tabs">
+    <nav class="wizard-tabs__nav">
+        {% for step_key, step_name, step_index in nav_steps %}
+            {# --- CORRECTED LOGIC --- #}
+            {# Instead of a 'with' block, we perform the checks directly where needed. #}
+
+            {# Condition 1: Is the link clickable? (If the step is completed or is the current step) #}
+            {% if step_key in completed_steps or step_key == current_step_name %}
+                <a href="{% url 'wizard_start' %}?step={{ step_key }}"
+                   class="wizard-tabs__link {% if step_key == current_step_name %}wizard-tabs__link--active{% endif %}">
+                    {{ step_name }}
+                </a>
+            {# Condition 2: The link is for a future, non-clickable step #}
+            {% else %}
+                <a href="#"
+                   class="wizard-tabs__link wizard-tabs__link--disabled"
+                   aria-disabled="true">
+                    {{ step_name }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </nav>
+</div>

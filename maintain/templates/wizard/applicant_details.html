@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 1: Your Details{% endblock %}
+
+{% block content %}
+<div class="wizard-content-wrapper">
+
+     {% include 'wizard/_wizard_tabs.html' %}
+
+    <div class="wizard-form-body">
+        <div class="wizard-header">
+            <span class="wizard-header__step-counter">Step 1 of 5</span>
+            <h2 class="wizard-header__title">Your Details</h2>
+            <p class="wizard-header__intro">Let's start with your information. This will be used to identify you as the 'complainant' on the official form.</p>
+        </div>
+
+        <form method="post" class="form-wizard" novalidate>
+            {% csrf_token %}
+            {{ form.form_step }}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+                {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
+                    {{ form.full_name }}
+                    {% for error in form.full_name.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.id_number.id_for_label }}">{{ form.id_number.label }}</label>
+                    {{ form.id_number }}
+                    {% for error in form.id_number.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.residential_address.id_for_label }}">{{ form.residential_address.label }}</label>
+                {{ form.residential_address }}
+                {% if form.residential_address.help_text %}
+                <p class="form-help-text">
+                    <span>{{ form.residential_address.help_text }}</span>
+                </p>
+                {% endif %}
+                {% for error in form.residential_address.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+            
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+                    {{ form.postal_code }}
+                    {% for error in form.postal_code.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                 <div class="form-group">
+                    <label class="form-label" for="{{ form.contact_phone.id_for_label }}">{{ form.contact_phone.label }}</label>
+                    {{ form.contact_phone }}
+                    {% for error in form.contact_phone.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.work_address.id_for_label }}">{{ form.work_address.label }}</label>
+                {{ form.work_address }}
+                {% for error in form.work_address.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="form-grid form-grid--2-col">
+                <div class="form-group">
+                    <label class="form-label" for="{{ form.work_phone.id_for_label }}">{{ form.work_phone.label }}</label>
+                    {{ form.work_phone }}
+                    {% for error in form.work_phone.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+                 <div class="form-group">
+                    <label class="form-label" for="{{ form.nearest_police_station.id_for_label }}">{{ form.nearest_police_station.label }}</label>
+                    {{ form.nearest_police_station }}
+                    {% for error in form.nearest_police_station.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="wizard-form-footer">
+                <button type="submit" class="btn btn-primary">
+                    Continue to Respondent's Details
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
