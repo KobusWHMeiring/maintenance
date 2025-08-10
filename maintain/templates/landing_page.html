@@ -1,101 +1,118 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Justice Lab - Child Maintenance Application{% endblock %}
+{% block title %}Child Maintenance Application - Maintenance Assist{% endblock %}
 
 {% block content %}
-<main class="page-wrapper">
-    <!-- Hero Section -->
-    <section class="hero-gradient">
-        <div class="container" style="text-align: center; padding: 4rem 0;">
-            <h1 class="landing-hero__title">Take the first step to securing child maintenance.</h1>
-            <p class="landing-hero__subtitle">
-                Our free and secure tool helps you fill out the official J101E form correctly, without the confusion. No account needed.
-            </p>
-            <div class="landing-hero__cta">
-                <a href="{% url 'wizard_start' %}" class="btn btn-primary btn-lg">Start Your Application Now</a>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero__container">
+        <div class="hero__text">
+            <h1 class="hero__heading">Take the first step to securing child maintenance.</h1>
+            <p class="hero__subheading">Our free and secure tool helps you fill out the official J101E form correctly, without the confusion. No account needed.</p>
+            <div class="hero__actions">
+                <a href="{% url 'wizard_start' %}" class="btn btn-primary btn--large">Start Your Application</a>
             </div>
         </div>
-    </section>
+        <div class="hero__image-wrapper">
+            <img src="{% static 'images/maintenance_hero_illustration.png' %}" alt="Illustration of a parent and child with legal documents" class="hero__image">
+        </div>
+    </div>
+</section>
 
-    <!-- How it Works Section -->
-    <section class="page-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-header__title">A Simple 3-Step Process</h2>
-                <p class="section-header__subtitle">Get your application ready in no time.</p>
+<!-- How It Works Section -->
+<section id="how-it-works" class="features-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">A Simple 3-Step Process</h2>
+            <p class="section-subtitle">Get your application ready in no time.</p>
+        </div>
+
+        <div class="features-section__grid features-section__grid--3-col">
+            <!-- Step 1 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">edit_note</span>
+                </div>
+                <h3 class="feature-card__title">Answer Simple Questions</h3>
+                <p class="feature-card__description">Our intuitive form guides you through each section, making sure you don't miss anything important.</p>
             </div>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="process-step__icon-wrapper">
-                        <span class="material-icons process-step__icon">edit_note</span>
-                    </div>
-                    <h3 class="process-step__title">Step 1: Answer Simple Questions</h3>
-                    <p class="process-step__description">Our intuitive form guides you through each section, making sure you don't miss anything important.</p>
+
+            <!-- Step 2 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">picture_as_pdf</span>
                 </div>
-                <div class="process-step">
-                    <div class="process-step__icon-wrapper">
-                        <span class="material-icons process-step__icon">picture_as_pdf</span>
-                    </div>
-                    <h3 class="process-step__title">Step 2: Review & Download</h3>
-                    <p class="process-step__description">Check your completed form for accuracy, then instantly download it as a print-ready PDF.</p>
+                <h3 class="feature-card__title">Review & Download</h3>
+                <p class="feature-card__description">Check your completed form for accuracy, then instantly download it as a print-ready PDF.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">gavel</span>
                 </div>
-                <div class="process-step">
-                    <div class="process-step__icon-wrapper">
-                        <span class="material-icons process-step__icon">gavel</span>
-                    </div>
-                    <h3 class="process-step__title">Step 3: Submit to Court</h3>
-                    <p class="process-step__description">Take your completed form and supporting documents to the nearest Magistrate's Court to lodge your application.</p>
-                </div>
+                <h3 class="feature-card__title">Submit to Court</h3>
+                <p class="feature-card__description">Take your completed form and supporting documents to the nearest Magistrate's Court to lodge your application.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="page-section page-section--white">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-header__title">Empowering You Through the Process</h2>
-                <p class="section-header__subtitle">We designed this tool with your needs in mind.</p>
-            </div>
-            <div class="feature-grid">
-                <div class="feature-card">
+<!-- Benefits Section -->
+<section class="features-section features-section--light-bg">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Designed for Your Peace of Mind</h2>
+            <p class="section-subtitle">We built this tool with your needs and security at the forefront.</p>
+        </div>
+
+        <div class="features-section__grid">
+             <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
                     <span class="material-icons feature-card__icon">paid</span>
-                    <h3 class="feature-card__title">Free to Use</h3>
-                    <p class="feature-card__description">Access to justice shouldn't have a price tag. Our tool is 100% free.</p>
                 </div>
-                <div class="feature-card">
-                    <span class="material-icons feature-card__icon">lock</span>
-                    <h3 class="feature-card__title">Private & Secure</h3>
-                    <p class="feature-card__description">We don't save your data. Your information is deleted when you close the window.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="material-icons feature-card__icon">lightbulb</span>
-                    <h3 class="feature-card__title">Guided Process</h3>
-                    <p class="feature-card__description">We simplify complex legal jargon, guiding you every step of the way.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="material-icons feature-card__icon">task_alt</span>
-                    <h3 class="feature-card__title">Reduces Errors</h3>
-                    <p class="feature-card__description">Our tool helps prevent common mistakes that can cause delays in your application.</p>
-                </div>
+                <h3 class="feature-card__title">Completely Free</h3>
+                <p class="feature-card__description">Access to justice shouldn't have a price tag. This tool is, and always will be, 100% free to use.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Justice Lab Suite Section -->
-    <section class="page-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-header__title">Part of the Justice Lab Suite</h2>
-                <p class="section-header__subtitle">
-                    This tool is one of many resources from <a href="https://justicelab.africa/" target="_blank" rel="noopener noreferrer">Justice Lab</a>, dedicated to making legal processes in South Africa more accessible. We leverage technology to empower individuals and promote access to justice for all.
-                </p>
-                <div class="landing-hero__cta">
-                    <a href="{% url 'wizard_start' %}" class="btn btn-primary btn-lg">Get Started Now</a>
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">lock</span>
                 </div>
+                <h3 class="feature-card__title">Private & Secure</h3>
+                <p class="feature-card__description">We don't save your personal data. All information is deleted from our servers after you download your document.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">lightbulb</span>
+                </div>
+                <h3 class="feature-card__title">Guided Process</h3>
+                <p class="feature-card__description">We simplify complex legal jargon and provide helpful hints, guiding you every step of the way.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="feature-card__icon-wrapper">
+                    <span class="material-icons feature-card__icon">task_alt</span>
+                </div>
+                <h3 class="feature-card__title">Reduces Errors</h3>
+                <p class="feature-card__description">Our validated form helps prevent common mistakes that can cause frustrating delays in your application.</p>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
+
+<!-- Final CTA Section -->
+<section class="final-cta">
+    <div class="container text-center">
+        <h2 class="final-cta__title">Ready to Start?</h2>
+        <p class="final-cta__text">Take control of the process and begin your child maintenance application today. It's free, secure, and straightforward.</p>
+        <a href="{% url 'wizard_start' %}" class="btn btn-primary btn-primary--large">Get Started Now</a>
+    </div>
+</section>
 {% endblock %}
