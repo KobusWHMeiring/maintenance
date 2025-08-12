@@ -12,4 +12,5 @@ urlpatterns = [
     path('generate_pdf/', views.generate_pdf, name='generate_pdf'),
     path('dev-autofill/', views.dev_autofill_and_redirect, name='dev_autofill'),
      path('downloads/', views.downloads_page, name='downloads_page'),
+     path('download-summary/', views.download_summary_csv, name='download_summary'), 
 ]

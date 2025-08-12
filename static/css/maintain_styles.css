@@ -441,3 +441,38 @@ child-formset {
     margin-right: 0.5rem;
     font-size: 1rem;
 }
+
+
+
+.summary-section__header {
+    display: flex;
+    justify-content: space-between; /* Pushes title and button to opposite ends */
+    align-items: center;
+    width: 100%;
+}
+
+/* Style the new edit button */
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875em;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--brand-primary); /* Use your theme's primary color */
+    background-color: transparent;
+    border: 1px solid var(--border-standard);
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-edit:hover {
+    background-color: var(--brand-primary-focus-ring); /* A light background for hover */
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+
+.btn-edit .material-icons {
+    font-size: 1.1em;
+}

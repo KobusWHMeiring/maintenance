@@ -9,6 +9,8 @@ from .forms import (
     ApplicantIncomeAssetsForm,
     FinancialsForm
 )
+import csv
+import io
 from datetime import date, datetime
 from decimal import Decimal
 from .pdf_map import PDF_FIELD_MAP, PDF_CHAR_MAP, PDF_CHILD_MAP
@@ -172,7 +174,58 @@ def index(request):
 
 
 # In claims/views.py
+def download_summary_csv(request):
+    """
+    Retrieves wizard data from the session and generates a CSV file for download.
+    """
+    wizard_data = request.session.get('wizard_data', {})
 
+    # If there's no data, redirect the user to the start of the wizard
+    if not wizard_data:
+        return redirect('wizard_start')
+
+    # Create an in-memory text buffer that the csv module can write to
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+
+    # Write the header row for the CSV file
+    writer.writerow(['Section', 'Question', 'Answer'])
+
+    # A helper function to make section titles more readable
+    def format_title(title):
+        return title.replace('_', ' ').title()
+
+    # Iterate through all the steps and data stored in the session
+    for step_name, step_data in wizard_data.items():
+        
+        # Handle formsets like 'child_details' which are lists of dictionaries
+        if isinstance(step_data, list):
+            for i, item_data in enumerate(step_data):
+                # e.g., "Child Details 1", "Child Details 2"
+                item_title = f"{format_title(step_name)} {i + 1}"
+                if isinstance(item_data, dict):
+                    for question, answer in item_data.items():
+                        writer.writerow([item_title, question, str(answer)])
+
+        # Handle regular form data which is a single dictionary
+        elif isinstance(step_data, dict):
+            section_title = format_title(step_name)
+            for question, answer in step_data.items():
+                # Skip the hidden form_step field
+                if question == 'form_step':
+                    continue
+                writer.writerow([section_title, question, str(answer)])
+
+    # Get the complete CSV string from the buffer
+    csv_string = buffer.getvalue()
+
+    # Create the HttpResponse object with the correct CSV headers.
+    # 'text/csv' tells the browser it's a CSV file.
+    # 'Content-Disposition' tells the browser to treat it as an attachment and suggests a filename.
+    response = HttpResponse(csv_string, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="maintenance_application_summary.csv"'
+    
+    return response
 
 def generate_pdf(request):
     wizard_data = request.session.get('wizard_data', {})

@@ -4,10 +4,18 @@
 {% block title %}Application Summary{% endblock %}
 
 {% block content %}
+
+<div class="wizard-content-wrapper">
+    <div class="wizard-form-body">
+
 <div class="summary-page">
     <div class="summary-header">
         <h2 class="summary-header__title">Application Summary</h2>
-        <p class="summary-header__intro">Please review all the information you have provided. If anything is incorrect, use the navigation tabs above to go back and make changes.</p>
+        <p class="summary-header__intro">Please review all the information you have provided. If anything is incorrect, use the "Edit" button for that section to make changes.</p>
+        <a href="{% url 'download_summary' %}" class="btn btn-secondary">
+            <span class="material-icons">download</span>
+            Download My Information
+        </a>
     </div>
 
     <div class="summary-content">
@@ -18,6 +26,9 @@
             <h3 class="summary-section__header">
                 <span class="material-icons summary-section__icon">person</span>
                 <span>Applicant Details (You)</span>
+                 <a href="{% url 'wizard_start' %}?step={{ step_name }}" class="btn-edit">
+                    <span class="material-icons">edit</span> Edit
+                </a>
             </h3>
             <div class="summary-grid">
                 {% for key, value in section_data.items %}
@@ -40,6 +51,9 @@
             <h3 class="summary-section__header">
                 <span class="material-icons summary-section__icon">family_restroom</span>
                 <span>Respondent Details</span>
+                <a href="{% url 'wizard_start' %}?step={{ step_name }}" class="btn-edit">
+                    <span class="material-icons">edit</span> Edit
+                </a>
             </h3>
             <div class="summary-grid">
                 {% for key, value in section_data.items %}
@@ -62,6 +76,9 @@
             <h3 class="summary-section__header">
                 <span class="material-icons summary-section__icon">child_care</span>
                 <span>Children's Details</span>
+                <a href="{% url 'wizard_start' %}?step={{ step_name }}" class="btn-edit">
+                    <span class="material-icons">edit</span> Edit
+                </a>
             </h3>
             <div class="summary-child-list">
                 {% for child in children_data %}
@@ -91,6 +108,9 @@
             <h3 class="summary-section__header">
                 <span class="material-icons summary-section__icon summary-section__icon--green">account_balance_wallet</span>
                 <span>Your Income & Assets</span>
+                <a href="{% url 'wizard_start' %}?step={{ step_name }}" class="btn-edit">
+                    <span class="material-icons">edit</span> Edit
+                </a>
             </h3>
             <div class="summary-grid">
                 {% for key, value in section_data.items %}
@@ -113,6 +133,9 @@
             <h3 class="summary-section__header">
                 <span class="material-icons summary-section__icon summary-section__icon--red">receipt_long</span>
                 <span>Claim & Expense Details</span>
+                <a href="{% url 'wizard_start' %}?step={{ step_name }}" class="btn-edit">
+                    <span class="material-icons">edit</span> Edit
+                </a>
             </h3>
             <div class="summary-grid">
                 {% for key, value in section_data.items %}
@@ -139,5 +162,8 @@
      Confirm Information & Continue
 </a>
     </div>
+</div>
+
+</div>
 </div>
 {% endblock %}

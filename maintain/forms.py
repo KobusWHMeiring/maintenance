@@ -76,14 +76,15 @@ class RespondentDetailsForm(forms.Form):
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     date_of_birth = forms.DateField(
-        label="What is their date of birth (if you know it)?",
-        required=False,
-        widget=forms.DateInput(attrs={
-            'class': 'form-control form-control--has-icon-right',
-            'placeholder': 'YYYY-MM-DD',
-            'type': 'date'
-        })
-    )
+    label="What is their date of birth (if you know it)?",
+    required=False,
+    widget=forms.DateInput(attrs={
+        'class': 'form-control form-control--has-icon-right',
+        'placeholder': 'YYYY-MM-DD',
+        'type': 'date',
+        'onclick': 'this.showPicker()' 
+    })
+)
     home_address = forms.CharField(
         label="What is their home address?",
         help_text="A court official may need to deliver ('serve') documents here. Be as accurate as possible.",
@@ -129,7 +130,7 @@ class ChildForm(forms.Form):
     )
     date_of_birth = forms.DateField(
         label="Child's date of birth",
-        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'onclick': 'this.showPicker()'})
     )
 
     def clean_date_of_birth(self):
@@ -170,13 +171,13 @@ class FinancialsForm(forms.Form):
     currency_attrs = {'class': 'form-control', 'placeholder': '0.00', 'type': 'number', 'step': '0.01'}
     text_area_attrs = {'class': 'form-control', 'rows': 3}
     text_input_attrs = {'class': 'form-control'}
-    date_attrs = {'class': 'form-control', 'type': 'date'}
+    date_attrs = {'class': 'form-control', 'type': 'date', 'onclick': 'this.showPicker()'}
     day_attrs = {'class': 'form-control', 'type': 'number', 'min': '1', 'max': '31'}
 
     # CLAIM DETAILS
     legally_liable_reason = forms.CharField(label="Why is the other parent legally required to maintain the child(ren)?", widget=forms.Textarea(attrs=text_area_attrs), help_text="e.g., 'He is the biological father.'")
     child_in_care_reason = forms.CharField(label="Why are the children under your care?", widget=forms.Textarea(attrs=text_area_attrs), help_text="e.g., 'The children have lived with me exclusively since birth.'")
-    date_not_supported = forms.DateField(label="Since what date has the defendant not supported the child(ren)?", widget=forms.DateInput(attrs=date_attrs), required=False)
+    date_not_supported = forms.DateField(label="Since what date has the defendant not supported the child(ren)?", widget=forms.DateInput(attrs=date_attrs, ), required=False)
     payment_day = forms.IntegerField(label="Payment day of the month?", widget=forms.NumberInput(attrs=day_attrs), required=False)
     payment_made_to = forms.CharField(label="Who should the payment be made to?", widget=forms.TextInput(attrs=text_input_attrs), required=False, help_text="e.g., Your bank account details.")
     other_contributions_text = forms.CharField(label="Other requested contributions?", widget=forms.Textarea(attrs=text_area_attrs), required=False, help_text="e.g., '50% of school fees and uncovered medical expenses.'")

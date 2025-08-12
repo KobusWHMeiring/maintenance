@@ -54,6 +54,71 @@
     --box-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+/* ==========================================================================
+   Spacing Utility Classes
+   ========================================================================== */
+
+/*
+ * Note: These utilities use `!important` to ensure they override other styles.
+ * This is a standard practice for utility classes, as they are meant to have
+ * the final say on a specific style.
+ */
+
+:root {
+  /* Define a single source of truth for your spacing scale.
+     1rem is a common and flexible base unit (often 16px). */
+  --spacing-base: 1rem;
+}
+
+/* --- Margin Bottom (mb) --- */
+
+.mb-1 {
+  margin-bottom: calc(var(--spacing-base) * 0.25) !important; /* 4px if base is 16px */
+}
+
+.mb-2 {
+  margin-bottom: calc(var(--spacing-base) * 0.5) !important; /* 8px */
+}
+
+.mb-3 {
+  margin-bottom: var(--spacing-base) !important; /* 16px */
+}
+
+.mb-4 {
+  margin-bottom: calc(var(--spacing-base) * 1.5) !important; /* 24px */
+}
+
+.mb-5 {
+  margin-bottom: calc(var(--spacing-base) * 3) !important; /* 48px */
+}
+
+/* --- Vertical Margin (my) --- */
+/* Applies margin to both top and bottom */
+
+.my-1 {
+  margin-top: calc(var(--spacing-base) * 0.25) !important;
+  margin-bottom: calc(var(--spacing-base) * 0.25) !important;
+}
+
+.my-2 {
+  margin-top: calc(var(--spacing-base) * 0.5) !important;
+  margin-bottom: calc(var(--spacing-base) * 0.5) !important;
+}
+
+.my-3 {
+  margin-top: var(--spacing-base) !important;
+  margin-bottom: var(--spacing-base) !important;
+}
+
+.my-4 {
+  margin-top: calc(var(--spacing-base) * 1.5) !important;
+  margin-bottom: calc(var(--spacing-base) * 1.5) !important;
+}
+
+.my-5 {
+  margin-top: calc(var(--spacing-base) * 3) !important;
+  margin-bottom: calc(var(--spacing-base) * 3) !important;
+}
 
 /* ==========================================================================
    2. FONT-FACE (Kept from Tax App)
@@ -393,9 +458,21 @@ h1, h2, h3, h4, h5, h6 {
     border: var(--border-standard);
     border-radius: var(--border-radius);
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    appearance: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
     -webkit-appearance: none;
-    -moz-appearance: none;
+}
+
+/* Optional: For Firefox, you can use this to remove default styling, although icon handling differs */
+input[type="date"] {
+    -moz-appearance: textfield;
+}
+
+/* Make the custom material icon have a pointer cursor to indicate it's clickable */
+.input-group__icon {
+    cursor: pointer;
 }
 .form-control:focus {
     border-color: var(--brand-primary);
@@ -630,6 +707,12 @@ input,
     .nav__mobile-toggle {
         display: block;
     }
+}
+
+/* Add this rule to your stylesheet */
+
+.header__brand-link:hover {
+  text-decoration: none;
 }
 
 /* --- Hero Section --- */

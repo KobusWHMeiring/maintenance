@@ -1,0 +1,15 @@
+<div class="expense-table__row">
+    <div class="expense-table__label">{{ label_text }}</div>
+    <div class="expense-table__inputs {% if not self_field %}expense-table__inputs--single{% endif %}">
+        {% if self_field %}
+            <div class="expense-input-wrapper">
+                {{ self_field }}
+                {% for error in self_field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+        {% endif %}
+        <div class="expense-input-wrapper">
+            {{ child_field }}
+            {% for error in child_field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+        </div>
+    </div>
+</div>
